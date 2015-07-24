@@ -143,7 +143,7 @@ class main {
 					 }
 
 			$tpl->setVar('nodename', htmlentities($child['name']));
-			$tpl->setVar('description', htmlentities($child['description']));
+			$tpl->setVar('nodedescription', htmlentities($child['description']));
 			$tpl->setVar('class', isset($child['unused']) ? ' class="unused"' : '');
 			$tpl->setVar('oddeven', ' class="'.($even ? 'even' : 'odd').
 						  (isset($child['unused']) ? ' unused' : '').'"');

@@ -798,7 +798,7 @@ class Database {
 	private static function _broadcast($address, $bits) {
 		$ones = str_pad('', 128-$bits, '1');
 		$binary = str_pad($ones, 128, '0', STR_PAD_LEFT);
-		$hex = gmp_strval(gmp_init($binary, 2), 16);
+		$hex =  gmp_strval(gmp_init($binary, 2), 16);
 		$fullhex = str_pad($hex, 32, '0', STR_PAD_LEFT);
 		return unpack('H*', pack('H*', $address) | pack('H*', $fullhex))[1];
 	}

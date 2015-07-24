@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 */
 
-
 /* Set logging to ./log/ipdb.log */
 ini_set('error_log', 'log/ipdb.log');
 ini_set('log_errors', 'on');
