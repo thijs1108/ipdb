@@ -641,7 +641,7 @@ class Database {
 	 */
 	public function getNode($node) {
 		$block = self::_node2address($node);
-		$sql = "SELECT `address`, `bits`, `name`, `description` ".
+		$sql = "SELECT `address`, `bits`, `name`, `description`, `responsible` ".
 			"FROM `".$this->prefix."ip` ".
 			"WHERE `address`=:address AND `bits`=:bits";
 		$stmt = $this->db->prepare($sql);
@@ -651,6 +651,7 @@ class Database {
 		if ($result = $stmt->fetch(PDO::FETCH_ASSOC))
 			return array('node'=>self::_address2node($result['address'], $result['bits']),
 						 'name'=>$result['name'],
+						 'responsible'=>$result['responsible'],
 						 'description'=>$result['description']);
 		return false;	
 	}
@@ -663,7 +664,7 @@ class Database {
 		$block = self::_node2address($node);
 		$broadcast = self::_broadcast($block['address'], $block['bits']);
 		if ($block['bits']) {
-			$sql = "SELECT `address`, `bits`, `name`, `description` ".
+			$sql = "SELECT `address`, `bits`, `name`, `description`, `responsible` ".
 				"FROM `".$this->prefix."ip` ".
 				"LEFT JOIN ".
 				"  ( SELECT `address` AS `p_address`, `bits` AS `p_bits`, ".$this->broadcastsql." AS `p_broadcast` ".
@@ -680,7 +681,7 @@ class Database {
 				"      `address`<=:broadcast";
 		} else {
 			// The world
-			$sql = "SELECT `address`, `bits`, `name`, `description` ".
+			$sql = "SELECT `address`, `bits`, `name`, `description`, `responsible` ".
 				"FROM `".$this->prefix."ip` ".
 				"LEFT JOIN ".
 				"  ( SELECT `address` AS `p_address`, `bits` AS `p_bits`, ".$this->broadcastsql." AS `p_broadcast` ".
@@ -705,6 +706,7 @@ class Database {
 		while ($result = $stmt->fetch(PDO::FETCH_ASSOC))
 			$children[] = array('node'=>self::_address2node($result['address'], $result['bits']),
 								'name'=>$result['name'],
+								'responsible'=>$result['responsible'],
 								'description'=>$result['description']);
 		return $unused ? self::findUnused($node, $children) : $children;
 	}

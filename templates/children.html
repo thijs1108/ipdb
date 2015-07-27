@@ -2,24 +2,22 @@
 	<thead>
 		<tr>
 			<th>Adres</th>
-			<!-- BEGIN customfieldheader -->
-			<th>{customfield}</th>
-			<!-- END customfieldheader -->
-			<!-- BEGIN customtableheader -->
-			<th>{customtable}</th>
-			<!-- END customtableheader -->
 			<th>Naam</th>
 			<th>Taken</th>
+			<th>Verantwoordelijk</th>
+			<th>{customfield}</th>
+			<th>{customtable}</th>
 		</tr>
 	</thead>
 	<tbody>
 		<!-- BEGIN child -->
 		<tr{oddeven} style="cursor: pointer;" onclick="window.location.href = '{link}'">
 			<td>{label}</td>
-			<!-- BEGIN customfielddata --><td>{customfield}</td><!-- END customfielddata -->
-			<!-- BEGIN customtabledata --><td>{customtable}</td><!-- END customtabledata -->
 			<td>{nodename}</td>
 			<td>{nodedescription}</td>
+			<td>{responsible}</td>
+			<!-- BEGIN customfielddata --><td>{customfield}</td><!-- END customfielddata -->
+			<!-- BEGIN customtabledata --><td>{customtable}</td><!-- END customtabledata -->
 		</tr>
 		<!-- END child -->
 	</tbody>
