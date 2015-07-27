@@ -1077,7 +1077,7 @@ class Database {
 	/*
 	 * Change a node's address and/or name/description.
 	 */
-	public function changeNode($node, $newnode, $name='', $description='') {
+	public function changeNode($node, $newnode, $name='', $description='', $responsible='') {
 		global $config, $session;
 
 		/* Check for access */
@@ -1114,7 +1114,7 @@ class Database {
 		try {
 			// Change node
 			$sql = "UPDATE `".$this->prefix."ip` ".
-				"SET `address`=:newaddress, `bits`=:newbits, `name`=:newname, `description`=:newdescription ".
+				"SET `address`=:newaddress, `bits`=:newbits, `name`=:newname, `description`=:newdescription, `responsible`=:responsible ".
 				"WHERE `address`=:address AND `bits`=:bits";
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(':newaddress', $newblock['address'], PDO::PARAM_STR);
@@ -1123,6 +1123,7 @@ class Database {
 			$stmt->bindParam(':newdescription', $description, PDO::PARAM_STR);
 			$stmt->bindParam(':address', $block['address'], PDO::PARAM_STR);
 			$stmt->bindParam(':bits', $block['bits'], PDO::PARAM_INT);
+			$stmt->bindParam(':responsible', $responsible, PDO::PARAM_STR);
 			$stmt->execute();
 			foreach (array('fieldvalues', 'tablenode', 'access') as $table) {
 				$sql = "UPDATE `".$this->prefix.$table."` ".

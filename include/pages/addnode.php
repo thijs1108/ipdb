@@ -32,6 +32,7 @@ class addnode {
 		$tpl = new Template('node.html');
 		$tpl->setVar('nodename', request('nodename', ''));
 		$tpl->setVar('description', request('description', ''));
+		$tpl->setVar('responsible', request('responsible', ''));
 		if (!($basenode = $database->getNode(request('node'))))
 			$basenode = $database->getParent(request('node'));
 		$customfields = $database->getCustomFields();

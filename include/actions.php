@@ -80,7 +80,7 @@ function acton($action) {
 			  if ($database->error) {
 				  $error = $database->error;
 			  } else {
-				  $database->changeNode(request('node'), request('address').'/'.request('bits'), request('nodename'), request('description'));
+				  $database->changeNode(request('node'), request('address').'/'.request('bits'), request('nodename'), request('description'), request('responsible'));
 				  if ($database->error) {
 					  $error = $database->error;
 				  } else {

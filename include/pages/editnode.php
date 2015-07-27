@@ -69,6 +69,7 @@ class editnode {
 			$tpl->setVar('bits', preg_replace('/.*\//', '', $node['node']));
 			$tpl->setVar('nodename', htmlentities($node['name']));
 			$tpl->setVar('description', htmlentities($node['description']));
+			$tpl->setVar('responsible', htmlentities($node['responsible']));
 			$tpl->setVar('node', $node['node']);
 		}
 		$tpl->parse('changenode');

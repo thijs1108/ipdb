@@ -65,6 +65,7 @@ class main {
 			}
 			$tpl->setvar('nodename', htmlentities($data['name']));
 			$tpl->setvar('description', htmlentities($data['description']));
+			$tpl->setVar('responsible', htmlentities($data['responsible']));
 			$customfields = $database->getCustomFields();
 			if (count($customfields)>0)
 				foreach ($customfields as $field) {
