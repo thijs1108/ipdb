@@ -7,6 +7,7 @@
 Work in progress:
 * Layout improvements.
 * Extra table/field configuration dialogs.
+* fix SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect datetime value: '<date>' for column 'stamp' at row 1
 
 In general: Works fine, but has an 'unfinished' feel.
 
