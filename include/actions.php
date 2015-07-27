@@ -51,7 +51,7 @@ function acton($action) {
 		  break;
 	  case 'addnode':
 		  if ($session->authenticated) {
-			  if (!($node = $database->addNode(request('address').'/'.request('bits'), request('nodename'), request('description')))) {
+			  if (!($node = $database->addNode(request('address').'/'.request('bits'), request('nodename'), request('description'), request('responsible')))) {
 				  $error = $database->error;
 				  break;
 			  }

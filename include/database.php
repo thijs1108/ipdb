@@ -926,7 +926,7 @@ class Database {
 	/*
 	 * Add a node to the database.
 	 */
-	public function addNode($node, $name='', $description='') {
+	public function addNode($node, $name='', $description='', $responsible='') {
 		global $session;
 
 		$block = self::_node2address($node);
@@ -972,13 +972,14 @@ class Database {
 
 		/* Add new node */
 		try {
-			$sql = "INSERT INTO `".$this->prefix."ip` (`address`, `bits`, `name`, `description`) ".
-				"VALUES(:address, :bits, :name, :description)";
+			$sql = "INSERT INTO `".$this->prefix."ip` (`address`, `bits`, `name`, `description`, `responsible`) ".
+				"VALUES(:address, :bits, :name, :description, :responsible)";
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(':address', $block['address'], PDO::PARAM_STR);
 			$stmt->bindParam(':bits', $block['bits'], PDO::PARAM_INT);
 			$stmt->bindParam(':name', $name, PDO::PARAM_STR);
 			$stmt->bindParam(':description', $description, PDO::PARAM_STR);
+			$stmt->bindParam(':responsible', $responsible, PDO::PARAM_STR);
 			$stmt->execute();
 		} catch (PDOException $e) {
 			$this->error = $e->getMessage();
