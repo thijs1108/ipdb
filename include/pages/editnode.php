@@ -70,6 +70,7 @@ class editnode {
 			$tpl->setVar('nodename', htmlentities($node['name']));
 			$tpl->setVar('description', htmlentities($node['description']));
 			$tpl->setVar('responsible', htmlentities($node['responsible']));
+			$tpl->setVar('remarks', htmlentities($node['remarks']));
 			$tpl->setVar('node', $node['node']);
 		}
 		$tpl->parse('changenode');

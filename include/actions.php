@@ -51,7 +51,7 @@ function acton($action) {
 		  break;
 	  case 'addnode':
 		  if ($session->authenticated) {
-			  if (!($node = $database->addNode(request('address').'/'.request('bits'), request('nodename'), request('description'), request('responsible')))) {
+			  if (!($node = $database->addNode(request('address').'/'.request('bits'), request('nodename'), request('description'), request('responsible'), request('remarks')))) {
 				  $error = $database->error;
 				  break;
 			  }
@@ -80,7 +80,7 @@ function acton($action) {
 			  if ($database->error) {
 				  $error = $database->error;
 			  } else {
-				  $database->changeNode(request('node'), request('address').'/'.request('bits'), request('nodename'), request('description'), request('responsible'));
+				  $database->changeNode(request('node'), request('address').'/'.request('bits'), request('nodename'), request('description'), request('responsible'), request('remarks'));
 				  if ($database->error) {
 					  $error = $database->error;
 				  } else {

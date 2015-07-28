@@ -33,6 +33,7 @@ class addnode {
 		$tpl->setVar('nodename', request('nodename', ''));
 		$tpl->setVar('description', request('description', ''));
 		$tpl->setVar('responsible', request('responsible', ''));
+		$tpl->setVar('remarks', request('remarks', ''));
 		if (!($basenode = $database->getNode(request('node'))))
 			$basenode = $database->getParent(request('node'));
 		$customfields = $database->getCustomFields();

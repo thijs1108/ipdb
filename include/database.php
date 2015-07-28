@@ -641,7 +641,7 @@ class Database {
 	 */
 	public function getNode($node) {
 		$block = self::_node2address($node);
-		$sql = "SELECT `address`, `bits`, `name`, `description`, `responsible` ".
+		$sql = "SELECT `address`, `bits`, `name`, `description`, `responsible`, `remarks` ".
 			"FROM `".$this->prefix."ip` ".
 			"WHERE `address`=:address AND `bits`=:bits";
 		$stmt = $this->db->prepare($sql);
@@ -652,6 +652,7 @@ class Database {
 			return array('node'=>self::_address2node($result['address'], $result['bits']),
 						 'name'=>$result['name'],
 						 'responsible'=>$result['responsible'],
+						 'remarks'=>$result['remarks'],
 						 'description'=>$result['description']);
 		return false;	
 	}
@@ -664,7 +665,7 @@ class Database {
 		$block = self::_node2address($node);
 		$broadcast = self::_broadcast($block['address'], $block['bits']);
 		if ($block['bits']) {
-			$sql = "SELECT `address`, `bits`, `name`, `description`, `responsible` ".
+			$sql = "SELECT `address`, `bits`, `name`, `description`, `responsible`, `remarks` ".
 				"FROM `".$this->prefix."ip` ".
 				"LEFT JOIN ".
 				"  ( SELECT `address` AS `p_address`, `bits` AS `p_bits`, ".$this->broadcastsql." AS `p_broadcast` ".
@@ -681,7 +682,7 @@ class Database {
 				"      `address`<=:broadcast";
 		} else {
 			// The world
-			$sql = "SELECT `address`, `bits`, `name`, `description`, `responsible` ".
+			$sql = "SELECT `address`, `bits`, `name`, `description`, `responsible`, `remarks` ".
 				"FROM `".$this->prefix."ip` ".
 				"LEFT JOIN ".
 				"  ( SELECT `address` AS `p_address`, `bits` AS `p_bits`, ".$this->broadcastsql." AS `p_broadcast` ".
@@ -707,6 +708,7 @@ class Database {
 			$children[] = array('node'=>self::_address2node($result['address'], $result['bits']),
 								'name'=>$result['name'],
 								'responsible'=>$result['responsible'],
+								'remarks'=>$result['remarks'],
 								'description'=>$result['description']);
 		return $unused ? self::findUnused($node, $children) : $children;
 	}
@@ -926,7 +928,7 @@ class Database {
 	/*
 	 * Add a node to the database.
 	 */
-	public function addNode($node, $name='', $description='', $responsible='') {
+	public function addNode($node, $name='', $description='', $responsible='', $remarks='') {
 		global $session;
 
 		$block = self::_node2address($node);
@@ -972,14 +974,15 @@ class Database {
 
 		/* Add new node */
 		try {
-			$sql = "INSERT INTO `".$this->prefix."ip` (`address`, `bits`, `name`, `description`, `responsible`) ".
-				"VALUES(:address, :bits, :name, :description, :responsible)";
+			$sql = "INSERT INTO `".$this->prefix."ip` (`address`, `bits`, `name`, `description`, `responsible`, `remarks`) ".
+				"VALUES(:address, :bits, :name, :description, :responsible, :remarks)";
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(':address', $block['address'], PDO::PARAM_STR);
 			$stmt->bindParam(':bits', $block['bits'], PDO::PARAM_INT);
 			$stmt->bindParam(':name', $name, PDO::PARAM_STR);
 			$stmt->bindParam(':description', $description, PDO::PARAM_STR);
 			$stmt->bindParam(':responsible', $responsible, PDO::PARAM_STR);
+			$stmt->bindParam(':remarks', $remarks, PDO::PARAM_STR);
 			$stmt->execute();
 		} catch (PDOException $e) {
 			$this->error = $e->getMessage();
@@ -1078,7 +1081,7 @@ class Database {
 	/*
 	 * Change a node's address and/or name/description.
 	 */
-	public function changeNode($node, $newnode, $name='', $description='', $responsible='') {
+	public function changeNode($node, $newnode, $name='', $description='', $responsible='', $remarks='') {
 		global $config, $session;
 
 		/* Check for access */
@@ -1115,7 +1118,7 @@ class Database {
 		try {
 			// Change node
 			$sql = "UPDATE `".$this->prefix."ip` ".
-				"SET `address`=:newaddress, `bits`=:newbits, `name`=:newname, `description`=:newdescription, `responsible`=:responsible ".
+				"SET `address`=:newaddress, `bits`=:newbits, `name`=:newname, `description`=:newdescription, `responsible`=:responsible, `remarks`=:remarks ".
 				"WHERE `address`=:address AND `bits`=:bits";
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(':newaddress', $newblock['address'], PDO::PARAM_STR);
@@ -1125,6 +1128,7 @@ class Database {
 			$stmt->bindParam(':address', $block['address'], PDO::PARAM_STR);
 			$stmt->bindParam(':bits', $block['bits'], PDO::PARAM_INT);
 			$stmt->bindParam(':responsible', $responsible, PDO::PARAM_STR);
+			$stmt->bindParam(':remarks', $remarks, PDO::PARAM_STR);
 			$stmt->execute();
 			foreach (array('fieldvalues', 'tablenode', 'access') as $table) {
 				$sql = "UPDATE `".$this->prefix.$table."` ".

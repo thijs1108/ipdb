@@ -66,6 +66,7 @@ class main {
 			$tpl->setvar('nodename', htmlentities($data['name']));
 			$tpl->setvar('description', htmlentities($data['description']));
 			$tpl->setVar('responsible', htmlentities($data['responsible']));
+			$tpl->setVar('remarks', htmlentities($data['remarks']));
 			$customfields = $database->getCustomFields();
 			if (count($customfields)>0)
 				foreach ($customfields as $field) {
@@ -146,6 +147,7 @@ class main {
 			$tpl->setVar('nodename', htmlentities($child['name']));
 			$tpl->setVar('nodedescription', htmlentities($child['description']));
 			$tpl->setVar('responsible', htmlentities($child['responsible']));
+			$tpl->setVar('remarks', htmlentities($child['remarks']));
 			$tpl->setVar('class', isset($child['unused']) ? ' class="unused"' : '');
 			$tpl->setVar('oddeven', ' class="'.($even ? 'even' : 'odd').
 						  (isset($child['unused']) ? ' unused' : '').'"');
