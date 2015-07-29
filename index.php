@@ -50,7 +50,7 @@ $root = dirname(__FILE__);
 
 
 /* Version */
-$version = 0.1;
+$version = 0.2;
 
 
 /* Check for incoming RESTful request */
@@ -130,6 +130,5 @@ if (method_exists($pageobj, 'get')) {
 
 /* Send back the requested content */
 send($pagedata);
-
 
 ?>

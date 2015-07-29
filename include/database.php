@@ -125,11 +125,11 @@ class Database {
 	public function log($action) {
 		global $session;
 		$sql = "INSERT INTO `".$this->prefix."log` (`stamp`, `username`, `action`) ".
-			"VALUES(:stamp, :username, :action)";
+			"VALUES(10, :username, :action)";
 		try {
 			$timestamp = date('c');
 			$stmt = $this->db->prepare($sql);
-			$stmt->bindParam(':stamp', $timestamp, PDO::PARAM_STR);
+			//$stmt->bindParam(':stamp', $timestamp, PDO::PARAM_STR);
 			$stmt->bindParam(':username', $session->username, PDO::PARAM_STR);
 			$stmt->bindParam(':action', $action, PDO::PARAM_STR);
 			return $stmt->execute();
