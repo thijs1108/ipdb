@@ -29,13 +29,13 @@ class groups {
 		global $database, $config;
 		if (isset($_GET['group'])){
 			$tpl = new Template('groupsset.html');
-			$servergroupold="";
 			$children=$database->getGroupsSet($_GET['group']);
 			foreach($children as $key => $item){
 					$tpl->setVar('name', $item['name']);
 					$tpl->setVar('node', $item['node']);
 					$tpl->parse('entry');
 			}
+			$tpl->setVar('group', $_GET['group']);
 		}
 		else{
 			$tpl = new Template('groups.html');
