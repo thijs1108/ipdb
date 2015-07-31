@@ -27,37 +27,33 @@ class groups {
 
 	public function get(){
 		global $database, $config;
-		$tpl = new Template('groups.html');
-		$databaseservername="localhost";
-		$databaseusername="root";
-		$databasepassword="changeme";
-		$databasename="ipdb";
-		$databaseconnection= mysqli_connect($databaseservername, $databaseusername, $databasepassword, $databasename);
-		$oldservergroup="";
-		$output="";
-
-		if (!$databaseconnection){
-			die("Connection failed: " . mysqli_connect_error);
-		}
-		$sql="SELECT servergroup ";
-		$sql.="FROM ipdb_ip WHERE `bits` = 128 ORDER BY servergroup";
-		$result= mysqli_query($databaseconnection,$sql);
-
-		if (mysqli_num_rows($result) > 0){
-			while ($row = mysqli_fetch_assoc($result)){
-				if($row['servergroup']!=$oldservergroup){
-					$tpl->setVar('group', $row['servergroup']);
+		if (isset($_GET['group'])){
+			$tpl = new Template('groupsset.html');
+			$servergroupold="";
+			$children=$database->getGroupsSet($_GET['group']);
+			foreach($children as $key => $item){
+					$tpl->setVar('name', $item['name']);
+					$tpl->setVar('node', $item['node']);
 					$tpl->parse('entry');
-				}
-				$oldservergroup = $row['servergroup'];
 			}
 		}
-		mysqli_close($databaseconnection);
-		
+		else{
+			$tpl = new Template('groups.html');
+			$servergroupold="";
+			$children=$database->getGroups();
+			foreach($children as $key => $item){
+				$servergroup=$item['servergroup'];
+				if($servergroupold!=$servergroup){
+					$tpl->setVar('group', $item['servergroup']);
+					$tpl->parse('entry');
+				}
+				$servergroupold=$servergroup;
+			}
+		}
 		$content = $tpl->get();
-		return array('title'=>'IPDB :: Groups',
-					 'content'=>$content);
-	}
+			return array('title'=>'IPDB :: Groups',
+						 'content'=>$content);
+	}	
 }
 
 
