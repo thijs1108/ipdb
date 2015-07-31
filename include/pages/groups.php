@@ -33,6 +33,9 @@ class groups {
 			foreach($children as $key => $item){
 					$tpl->setVar('name', $item['name']);
 					$tpl->setVar('node', $item['node']);
+					$tpl->setVar('description', $item['description']);
+					$tpl->setVar('responsible', $item['responsible']);
+					$tpl->setVar('remarks', $item['remarks']);
 					$tpl->parse('entry');
 			}
 			$tpl->setVar('group', $_GET['group']);
