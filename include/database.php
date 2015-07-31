@@ -2213,7 +2213,7 @@ class Database {
 	public function getGroups() {
 			$sql = "SELECT `address`, `bits`, `name`, `description`, `responsible`, `remarks`, `servergroup` ".
 				"FROM `".$this->prefix."ip` ".
-				"      WHERE `bits`=128";
+				"      WHERE `bits`=128 ORDER BY `servergroup`";
 		
 		$stmt = $this->db->prepare($sql);
 		$stmt->execute();
@@ -2230,7 +2230,7 @@ class Database {
 	public function getGroupsSet($group) {
 			$sql = "SELECT `address`, `bits`, `name`, `description`, `responsible`, `remarks`, `servergroup` ".
 				"FROM `".$this->prefix."ip` ".
-				"WHERE `bits`=128 AND `servergroup`='" . $group . "'";
+				"WHERE `bits`=128 AND `servergroup`='" . $group . "' ORDER BY `servergroup`";
 		$stmt = $this->db->prepare($sql);
 		$stmt->execute();
 		$children = array();
