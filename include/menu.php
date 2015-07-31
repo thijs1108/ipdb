@@ -37,6 +37,7 @@ class Menu {
 					$menu['Tables'][$table['description']] = 'page=customtable&table='.$table['table'];
 			}
 			$menu['History'] = 'page=history';
+			$menu['Groups'] = 'page=groups';
 			$menu['Options'] = array('My account'=>'page=account');
 			if ($database->isAdmin($session->username)) {
 				$menu['Options']['Users'] = 'page=users';

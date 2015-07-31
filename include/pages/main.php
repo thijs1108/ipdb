@@ -170,6 +170,7 @@ class main {
 					$tpl->parse('customtableheader');
 				}
 		return $tpl->get();
+		
 	}
 
 
