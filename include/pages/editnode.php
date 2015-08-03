@@ -39,6 +39,16 @@ class editnode {
 				$tpl->setVar('parentlink', me().'?page=main&amp;node=::/0');
 			}
 			$tpl->parse('parent');
+			$servergroupold="";
+			$children=$database->getGroups();
+			foreach($children as $key => $item){
+				$servergroup=$item['servergroup'];
+				if($servergroupold!=$servergroup){
+					$tpl->setVar('group', $item['servergroup']);
+					$tpl->parse('groups');
+				}
+				$servergroupold=$servergroup;
+			}
 			$customfields = $database->getCustomFields();
 			if (count($customfields)>0)
 				foreach ($customfields as $field) {

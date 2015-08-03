@@ -19,7 +19,13 @@
 			</tr>
 			<tr>
 				<td class="label">Servergroep:</td>
-				<td><input type="text" name="servergroup" value="{servergroup}" /></td>
+				<td><input list="groups" name="servergroup">
+					<datalist id="groups">
+						<!-- BEGIN groups -->
+						<option value="{group}">
+						<!-- END groups -->
+					</datalist> Dubbelklik om aan bestaande groep toe te voegen!
+				</td>
 			</tr>
 			<!-- BEGIN parent -->
 			<tr>

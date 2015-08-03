@@ -92,7 +92,7 @@ body {
 div#wrapper {
 	display: table;
 	margin: 0 auto;
-	width: 970px;
+	width: 1400px;
 	height: 100%;
 }
 div#tree, div#content {
@@ -109,7 +109,7 @@ div#content:first-child {
 	margin: 0.5rem 0;
 }
 div#tree {
-	width: 25rem;
+	width: 30rem;
 }
 @media only screen and (max-width: 985px) {
 	div#wrapper {
