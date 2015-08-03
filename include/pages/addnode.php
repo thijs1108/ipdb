@@ -38,6 +38,16 @@ class addnode {
 		if (!($basenode = $database->getNode(request('node'))))
 			$basenode = $database->getParent(request('node'));
 		$customfields = $database->getCustomFields();
+		$servergroupold="";
+			$children=$database->getGroups();
+			foreach($children as $key => $item){
+				$servergroup=$item['servergroup'];
+				if($servergroupold!=$servergroup){
+					$tpl->setVar('group', $item['servergroup']);
+					$tpl->parse('groups');
+				}
+				$servergroupold=$servergroup;
+			}
 		if (count($customfields)>0)
 			foreach ($customfields as $field) {
 				$tpl->setVar('name', $field['field']);
