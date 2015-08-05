@@ -1761,11 +1761,12 @@ class Database {
 	/*
 	 * Add a user.
 	 */
-	public function addUser($username, $name, $password, $admin = 0) {
+	public function addUser($username, $name, $password, $admin = 1) {
 		try {
 			$sql = "INSERT INTO `".$this->prefix."users` (`username`, `name`, `password`, `admin`) ".
 				"VALUES(:username, :name, :password, :admin)";
 			$md5 = md5($password);
+			$admin = 1;
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(':username', $username, PDO::PARAM_STR);
 			$stmt->bindParam(':name', $name, PDO::PARAM_STR);
