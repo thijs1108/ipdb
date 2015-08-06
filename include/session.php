@@ -59,6 +59,7 @@ class Session {
 			$a_username = isset($auth['username']) ? $auth['username'] : 'uid';
 			$a_name = isset($auth['name']) ? $auth['name'] : 'gecos';
 			$basedn = $auth['basedn'];
+			$basedc = $auth['basedc'];
 			$binddn = isset($auth['binddn']) ? preg_replace('/%u/', $username, $auth['binddn']) :
 				$a_username.'='.$username.','.$basedn;
 			$bindpw = isset($auth['bindpw']) ? $auth['bindpw'] : $password;
@@ -67,13 +68,26 @@ class Session {
 				error_log($this->error.' in '.__FILE__.' line '.__LINE__);
 				return false;
 			}
-			if (!($rsc = @ldap_search($ldap, $basedn, $a_username.'='.$username, array('dn', $a_name)))) {
+			if (!($rsc = @ldap_search($ldap, $basedn, $a_username.'='.$username , array('dn', $a_name)))) {
 				$this->error = ldap_error($ldap);
 				error_log($this->error.' in '.__FILE__.' line '.__LINE__);
 				return false;
 			}
 			$entries = ldap_get_entries($ldap, $rsc);
 			if ($entries['count']>0) {
+				if(isset($auth['group'])){
+					$ldapsearch=ldap_search($ldap, $basedc, '(cn='.$auth['group'] . ')');
+					$result = ldap_get_entries($ldap, $ldapsearch);
+					$groupmembership=0;
+					foreach($result['0']['memberuid'] as $key => $content){
+						if($content==$username){$groupmembership=1;}
+					}
+					if($groupmembership==0){
+						$this->error = $username. ' not in group '. $auth['group'];
+						error_log($this->error.' in '.__FILE__.' line '.__LINE__);
+						return false;
+					}
+				}
 				if (!@ldap_bind($ldap, $entries[0]['dn'], trim($password))) {
 					$this->error = 'Login failed';
 					error_log($this->error.' in '.__FILE__.' line '.__LINE__);
