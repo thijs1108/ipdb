@@ -92,7 +92,7 @@ body {
 div#wrapper {
 	display: table;
 	margin: 0 auto;
-	width: 1400px;
+	width: 100%;
 	height: 100%;
 }
 div#tree, div#content {
