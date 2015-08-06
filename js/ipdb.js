@@ -1,6 +1,6 @@
 /*
-Copyright 2011 Previder bv (http://www.previder.nl)
-Author: Robin Elfrink <robin@15augustus.nl>
+Copyright 2015 Topicus Onderwijs bv (http://www.topicus.nl)
+Author: Thijs Beltman <t.beltman@hotmail.nl>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
