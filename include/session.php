@@ -76,11 +76,14 @@ class Session {
 			$entries = ldap_get_entries($ldap, $rsc);
 			if ($entries['count']>0) {
 				if(isset($auth['group'])){
-					$ldapsearch=ldap_search($ldap, $basedc, '(cn='.$auth['group'] . ')');
-					$result = ldap_get_entries($ldap, $ldapsearch);
 					$groupmembership=0;
-					foreach($result['0']['memberuid'] as $key => $content){
-						if($content==$username){$groupmembership=1;}
+					foreach($auth['group'] as $key => $content){
+						$ldapsearch=ldap_search($ldap, $basedc, '(cn='.$content . ')');
+						$result = ldap_get_entries($ldap, $ldapsearch);
+						$i=0;
+						foreach($result['0']['memberuid'] as $key => $content){
+							if($username==$content){$groupmembership=1;}
+						}
 					}
 					if($groupmembership==0){
 						$this->error = $username. ' not in group '. $auth['group'];
