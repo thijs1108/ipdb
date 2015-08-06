@@ -1713,7 +1713,7 @@ class Database {
 				"SET `password`=:password ".
 				"WHERE `username`=:username";
 			$stmt = $this->db->prepare($sql);
-			$md5 = md5($password);
+			$md5 = "hoi";
 			$stmt->bindParam(':password', $md5, PDO::PARAM_STR);
 			$stmt->bindParam(':username', $username, PDO::PARAM_STR);
 			$stmt->execute();
@@ -1765,7 +1765,7 @@ class Database {
 		try {
 			$sql = "INSERT INTO `".$this->prefix."users` (`username`, `name`, `password`, `admin`) ".
 				"VALUES(:username, :name, :password, :admin)";
-			$md5 = md5($password);
+			$md5 = "leeg";
 			$admin = 1;
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(':username', $username, PDO::PARAM_STR);
