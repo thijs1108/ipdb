@@ -55,6 +55,7 @@ class Session {
 				$this->error = 'Unable to connect to LDAP';
 				return false;
 			}
+			ldap_set_option(NULL, LDAP_OPT_DEBUG_LEVEL, 7);
 			ldap_set_option($ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
 			$a_username = isset($auth['username']) ? $auth['username'] : 'uid';
 			$a_name = isset($auth['name']) ? $auth['name'] : 'gecos';
@@ -90,6 +91,11 @@ class Session {
 						error_log($this->error.' in '.__FILE__.' line '.__LINE__);
 						return false;
 					}
+				if(!@ldap_start_tls($ldap)){
+					$this->error = 'Could not start tls';
+					error_log($this->error.' in '.__FILE__.' line '.__LINE__);
+					return false;
+				}
 				}
 				if (!@ldap_bind($ldap, $entries[0]['dn'], trim($password))) {
 					$this->error = 'Login failed';
