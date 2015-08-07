@@ -82,6 +82,7 @@ class editnode {
 			$tpl->setVar('responsible', htmlentities($node['responsible']));
 			$tpl->setVar('remarks', htmlentities($node['remarks']));
 			$tpl->setVar('servergroup', htmlentities($node['servergroup']));
+			$tpl->setVar('os', htmlentities($node['os']));
 			$tpl->setVar('node', $node['node']);
 		}
 		$tpl->parse('changenode');
