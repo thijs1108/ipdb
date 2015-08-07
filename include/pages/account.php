@@ -32,7 +32,9 @@ class account {
 		$tpl = new Template('account.html');
 		$tpl->setVar('username', htmlentities($session->username));
 		$tpl->setVar('name', htmlentities($session->name));
-
+		if($config->session['auth']['type']=="ldap"){
+			$tpl->setVar('notchangeldap', 'For security reasons, can\'t change LDAP configuration');
+		}
 		if ($session->islocal)
 			$tpl->parse('localuser');
 		else
