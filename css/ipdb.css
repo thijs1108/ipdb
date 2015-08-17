@@ -61,6 +61,7 @@ div#content table {
 }
 div#content th, div#content td {
 	padding: 0.2rem 0.5rem;
+	white-space: nowrap;
 }
 div#content table tr.odd {
 	background-color: #fed;
