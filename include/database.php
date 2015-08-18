@@ -1004,8 +1004,8 @@ class Database {
 			return false;
 		}
 
-		$this->log('Added node '.$node.
-				   (empty($name) ? '' : ' ('.$name.')'));
+		$this->log('Maakte '.$node.
+				   (empty($name) ? ' aan' : ' ('.$name.') aan'));
 		return $node;
 	}
 
@@ -1058,7 +1058,7 @@ class Database {
 			error_log($e->getMessage().' in '.$e->getFile().' line '.$e->getLine().'.');
 			return false;
 		}
-		$this->log('Deleted node '.$node);
+		$this->log('Verwijderde '.$node);
 		return true;
 	}
 
@@ -1170,7 +1170,7 @@ class Database {
 				$stmt->bindParam(':bits', $block['bits'], PDO::PARAM_INT);
 				$stmt->execute();
 			}
-			$this->log('Changed node '.$node);
+			$this->log('Bewerkte '.$node);
 			return true;
 		} catch (PDOException $e) {
 			$this->error = $e->getMessage();
@@ -1785,7 +1785,7 @@ class Database {
 			$stmt->bindParam(':password', $md5, PDO::PARAM_STR);
 			$stmt->bindParam(':admin', $admin, PDO::PARAM_INT);
 			$stmt->execute();
-			$this->log('Added user '.$username. ' ('.$name.')');
+			$this->log('Gebruiker'.$username. ' ('.$name.') aangemaakt');
 			return true;
 		} catch (PDOException $e) {
 			$this->error = $e->getMessage();

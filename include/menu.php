@@ -29,22 +29,16 @@ class Menu {
 		global $config, $database, $session;
 		if ($session->authenticated) {
 			$tpl = new Template('menu.html');
-			$menu = array('The World'=>'page=main&node=::/0');
+			$menu = array('Hoofdnetwerken'=>'page=main&node=::/0');
 			$customtables = $database->getCustomTables();
 			if (count($customtables)>0) {
 				$menu['Tables'] = array();
 				foreach ($customtables as $table)
 					$menu['Tables'][$table['description']] = 'page=customtable&table='.$table['table'];
 			}
-			$menu['History'] = 'page=history';
-			$menu['Groups'] = 'page=groups';
-			$menu['Options'] = array('My account'=>'page=account');
-			if ($database->isAdmin($session->username)) {
-				$menu['Options']['Users'] = 'page=users';
-				$menu['Options']['Custom fields'] = 'page=customfields';
-				$menu['Options']['Custom tables'] = 'page=customtables';
-			}
-			$menu['Logout'] = 'page=login&action=logout&remote=remote';
+			$menu['Groepen'] = 'page=groups';
+			$menu['Geschiedenis'] = 'page=history';
+			$menu['Uitloggen'] = 'page=login&action=logout&remote=remote';
 			return self::makeHtml($menu);
 		}
 		return '';

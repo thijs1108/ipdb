@@ -28,6 +28,7 @@ class groups {
 	public function get(){
 		global $database, $config;
 		if (isset($_GET['group'])){
+			$even = False;
 			$tpl = new Template('groupsset.html');
 			$children=$database->getGroupsSet($_GET['group']);
 			foreach($children as $key => $item){
@@ -36,11 +37,16 @@ class groups {
 					$tpl->setVar('description', $item['description']);
 					$tpl->setVar('responsible', $item['responsible']);
 					$tpl->setVar('remarks', $item['remarks']);
+					$tpl->setVar('oddeven', ' class="'.($even ? 'even' : 'odd').
+						  (isset($child['unused']) ? ' unused' : '').'"');
+					$even=!$even;
 					$tpl->parse('entry');
+					
 			}
 			$tpl->setVar('group', $_GET['group']);
 		}
 		else{
+			$even=False;
 			$tpl = new Template('groups.html');
 			$servergroupold="";
 			$children=$database->getGroups();
@@ -48,7 +54,11 @@ class groups {
 				$servergroup=$item['servergroup'];
 				if($servergroupold!=$servergroup){
 					$tpl->setVar('group', $item['servergroup']);
+					$tpl->setVar('oddeven', ' class="'.($even ? 'even' : 'odd').
+						  (isset($child['unused']) ? ' unused' : '').'"');
+					$even=!$even;
 					$tpl->parse('entry');
+					
 				}
 				$servergroupold=$servergroup;
 			}

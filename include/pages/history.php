@@ -45,7 +45,7 @@ class history {
 		if (($total/$maxperpage)<=1) {
 			$navigation = '';
 		} else {
-			$navigation = 'Jump to page ';
+			$navigation = 'Spring naar pagina ';
 			$history = array_slice($history, ($pagenr-1)*$maxperpage, $maxperpage);
 			/* Build array of page numbers to show in navigation */
 			$pages = array_unique(array_merge(
@@ -65,7 +65,7 @@ class history {
 			}
 		}
 
-		$even = true;
+		$even = False;
 		foreach ($history as $entry) {
 			$tpl->setVar('timestamp', $entry['stamp']);
 			$tpl->setVar('username', $entry['username']);

@@ -121,7 +121,7 @@ class main {
 		$customfields = $database->getCustomFields();
 		$customtables = $database->getCustomTables();
 		$tpl = new Template('children.html');
-		$even = true;
+		$even = False;
 		foreach ($children as $child) {
 			$tpl->setVar('link', '?page='.(isset($child['unused']) ? 'addnode' : 'main').
 								  '&node='.$child['node']);

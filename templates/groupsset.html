@@ -1,4 +1,4 @@
-<a href="?page=groups"><b>Groups ></b></a><b>{group}</b>
+<a href="?page=groups"><b>Groepen ></b></a><b>{group}</b>
 <table class="group">
 	<thead>
 		<tr>			
@@ -11,16 +11,16 @@
 	</thead>
 	<tbody>
 			<!-- BEGIN entry -->
-			<tr>
-				<td style="white-space: nowrap;cursor: pointer;" onclick="window.location.href = '?page=main&node={node}'">{name}</td>
-				<td style="white-space: nowrap;cursor: pointer;" onclick="window.location.href = '?page=main&node={node}'">{node}</td>
-				<td style="white-space: nowrap;cursor: pointer;" onclick="window.location.href = '?page=main&node={node}'">{description}</td>
-				<td style="white-space: nowrap;cursor: pointer;" onclick="window.location.href = '?page=main&node={node}'">{responsible}</td>
-				<td style="white-space: nowrap;cursor: pointer;" onclick="window.location.href = '?page=main&node={node}'">{remarks}</td>
+			<tr{oddeven}style="white-space: nowrap;cursor: pointer;" onclick="window.location.href = '?page=main&node={node}'">
+				<td>{name}</td>
+				<td>{node}</td>
+				<td>{description}</td>
+				<td>{responsible}</td>
+				<td>{remarks}</td>
 			</tr>
 			<!-- END entry -->
 		</tbody>
 	</table>
 	<br>
-	<a class="button" href="?page=groups" remote="remote">back</a>
+	<a class="button" href="?page=groups" remote="remote">terug</a>
 
