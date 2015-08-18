@@ -899,6 +899,10 @@ class Database {
 			$sql = "SELECT DISTINCT `".$this->prefix."ip`.`address`, ".
 					"`".$this->prefix."ip`.`bits`, ".
 					"`".$this->prefix."ip`.`name`, ".
+					"`".$this->prefix."ip`.`os`, ".
+					"`".$this->prefix."ip`.`servergroup`, ".
+					"`".$this->prefix."ip`.`remarks`, ".
+					"`".$this->prefix."ip`.`responsible`, ".
 					"`".$this->prefix."ip`.`description` ".
 				"FROM `".$this->prefix."ip` ".
 				"LEFT JOIN `".$this->prefix."fieldvalues` ".
@@ -919,6 +923,10 @@ class Database {
 			while ($node = $stmt->fetch(PDO::FETCH_ASSOC))
 				$result[] = array('node'=>self::_address2node($node['address'], $node['bits']),
 								  'name'=>$node['name'],
+								  'os'=>$node['os'],
+								  'servergroup'=>$node['servergroup'],
+								  'remarks'=>$node['remarks'],
+								  'responsible'=>$node['responsible'],
 								  'description'=>$node['description']);
 			return $result;
 		} catch (PDOException $e) {
