@@ -39,6 +39,7 @@ class ipcheck {
 					if($ipadress!=$outipadress){
 						$tpl->setVar('name', $hostname);
 						$tpl->setVar('node', $ipadress);
+						$tpl->setVar('realaddress', $outipadress);
 						$tpl->parse('entry');
 					}
 			}
