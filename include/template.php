@@ -64,7 +64,6 @@ class Template {
 			$value = serialize($value);
 		}
 		$this->vars[$var] = $value;
-
 	}
 
 

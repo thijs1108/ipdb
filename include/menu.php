@@ -38,6 +38,7 @@ class Menu {
 			}
 			$menu['Groepen'] = 'page=groups';
 			$menu['Geschiedenis'] = 'page=history';
+			$menu['IPcheck'] = 'page=ipcheck';
 			$menu['Uitloggen'] = 'page=login&action=logout&remote=remote';
 			return self::makeHtml($menu);
 		}

@@ -2255,6 +2255,23 @@ class Database {
 								'description'=>$result['description']);
 		return $unused ? self::findUnused($node, $children) : $children;
 	}
+	public function getHosts() {
+			$sql = "SELECT `address`, `bits`, `name`, `description`, `responsible`, `remarks`, `servergroup` ".
+				"FROM `".$this->prefix."ip` ".
+				"      WHERE `bits`=128";
+		
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute();
+		$children = array();
+		while ($result = $stmt->fetch(PDO::FETCH_ASSOC))
+			$children[] = array('node'=>self::_address2node($result['address'], $result['bits']),
+								'name'=>$result['name'],
+								'responsible'=>$result['responsible'],
+								'remarks'=>$result['remarks'],
+								'servergroup'=>$result['servergroup'],
+								'description'=>$result['description']);
+		return  $children;
+	}
 	
 }
 
