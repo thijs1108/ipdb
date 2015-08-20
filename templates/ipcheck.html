@@ -5,14 +5,16 @@ De volgende hostnames hebben niet het ip adres dat er naast staat!
 			<th>Naam</th>
 			<th>Adres</th>
 			<th>Echte adres</th>
+			<th>Automatisch updaten</th>
 		</tr>
 	</thead>
 	<tbody>
 			<!-- BEGIN entry -->
-			<tr style="white-space: nowrap;cursor: pointer;" onclick="window.location.href = '?page=main&node={node}'">
+			<tr style="white-space: nowrap;cursor: pointer;" onclick="window.location.href = '?page=main&node={node}/32'">
 				<td>{name}</td>
 				<td>{node}</td>
 				<td>{realaddress}</td>
+				<td><a href="?remote=remote&address={realaddress}&bits=32&nodename={name}&responsible={responsible}&remarks={remarks}&os={os}&servergroup={servergroup}&description={description}&submit=&cancel=cancel&action=changenode&node={node}/32">{update}</a></td>
 			</tr>
 			<!-- END entry -->
 		</tbody>

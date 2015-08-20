@@ -27,25 +27,41 @@ class ipcheck {
 
 	public function get(){
 		global $database, $config;
-			$tpl = new Template('ipcheck.html');
-			$hosts=$database->getHosts();
-			foreach($hosts as $key => $item){
-					$hostname= $item['name'];
-					$nodelength=strlen($item['node']);
-					$ipadress=substr($item['node'],0,$nodelength-3);
-					$output = array();
-					exec("nslookup $hostname", $output);
-					$outipadress=substr($output[4],9,15);
-					if($ipadress!=$outipadress){
-						$tpl->setVar('name', $hostname);
-						$tpl->setVar('node', $ipadress);
-						$tpl->setVar('realaddress', $outipadress);
-						$tpl->parse('entry');
-					}
+		$tpl = new Template('ipcheck.html');
+		$hosts=$database->getHosts();
+		foreach($hosts as $key => $item){
+			$hostname= $item['name'];
+			$nodelength=strlen($item['node']);
+			$ipadress=substr($item['node'],0,$nodelength-3);
+			$output = array();
+			exec("nslookup $hostname", $output);
+			$outipadress=substr($output[4],9,15);
+			if($outipadress==""){$outipadress="bestaat niet";}
+			if($ipadress!=$outipadress){
+					$tpl->setVar('name', $hostname);
+					$tpl->setVar('node', $ipadress);
+					$tpl->setVar('responsible', $item['responsible']);
+					$tpl->setVar('os', $item['os']);
+					$tpl->setVar('description', $item['description']);
+					$tpl->setVar('servergroup', $item['servergroup']);
+					$tpl->setVar('remarks', $item['remarks']);
+					$tpl->setVar('realaddress', $outipadress);
+				if($outipadress!="bestaat niet"){
+					$updatebutton="<center><button type='button'>Update</button></center>";
+					$tpl->setVar('update', $updatebutton);
+				}
+				else{
+					$tpl->setVar('update', '');
+				}
+				$tpl->parse('entry');
 			}
-			$content = $tpl->get();
-			return array('title'=>'IPDB :: Groups',
-						 'content'=>$content);
+		}
+		$content = $tpl->get();
+		return array('title'=>'IPDB :: Groups',
+					 'content'=>$content);
+		if(isset($_GET['update'])){
+			$database->changeNode($_GET['node'], $_GET['newadress']);
+		}
 	}	
 }
 

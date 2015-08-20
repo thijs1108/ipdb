@@ -2256,7 +2256,7 @@ class Database {
 		return $unused ? self::findUnused($node, $children) : $children;
 	}
 	public function getHosts() {
-			$sql = "SELECT `address`, `bits`, `name`, `description`, `responsible`, `remarks`, `servergroup` ".
+			$sql = "SELECT `address`, `bits`, `name`, `description`, `responsible`, `remarks`, `servergroup`, `os` ".
 				"FROM `".$this->prefix."ip` ".
 				"      WHERE `bits`=128";
 		
@@ -2269,6 +2269,7 @@ class Database {
 								'responsible'=>$result['responsible'],
 								'remarks'=>$result['remarks'],
 								'servergroup'=>$result['servergroup'],
+								'os'=>$result['os'],
 								'description'=>$result['description']);
 		return  $children;
 	}
