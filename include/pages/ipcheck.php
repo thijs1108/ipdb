@@ -33,11 +33,12 @@ class ipcheck {
 			$hostname= $item['name'];
 			$nodelength=strlen($item['node']);
 			$ipadress=substr($item['node'],0,$nodelength-3);
+			$parent=$database->getParent($item['node']);
 			$output = array();
 			exec("nslookup $hostname", $output);
 			$outipadress=substr($output[4],9,15);
 			if($outipadress==""){$outipadress="bestaat niet";}
-			if($ipadress!=$outipadress){
+			if($ipadress!=$outipadress && $parent['name']=="Intern"){
 					$tpl->setVar('name', $hostname);
 					$tpl->setVar('node', $ipadress);
 					$tpl->setVar('responsible', $item['responsible']);
@@ -54,6 +55,11 @@ class ipcheck {
 					$tpl->setVar('button', '');
 				}
 				$tpl->parse('entry');
+			}
+			if($parent['name']=="The World"){
+				$tpl->setVar('name', $hostname);
+				$tpl->setVar('node', $ipadress);
+				$tpl->parse('noparent');
 			}
 		}
 		$content = $tpl->get();

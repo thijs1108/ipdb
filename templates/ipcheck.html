@@ -35,4 +35,21 @@ De volgende hostnames hebben niet het ip adres dat er naast staat!
 		</tbody>
 	</table>
 	<br>
+De volgende hosts hebben geen parent:
+<table class="ipcheck">
+	<thead>
+		<tr>			
+			<th>Naam</th>
+			<th>Adres</th>
+		</tr>
+	</thead>
+	<tbody>
+			<!-- BEGIN noparent -->
+			<tr>
+				<td style="white-space: nowrap;cursor: pointer;" onclick="window.location.href = '?page=main&node={node}/32'">{name}</td>
+				<td style="white-space: nowrap;cursor: pointer;" onclick="window.location.href = '?page=main&node={node}/32'">{node}</td>
+			</tr>
+			<!-- END noparent -->
+		</tbody>
+	</table>
 
