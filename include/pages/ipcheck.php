@@ -38,7 +38,7 @@ class ipcheck {
 			exec("nslookup $hostname", $output);
 			$outipadress=substr($output[4],9,15);
 			if($outipadress==""){$outipadress="bestaat niet";}
-			if($ipadress!=$outipadress && $parent['name']=="Intern"){
+			if($ipadress!=$outipadress && $parent['name']=="Intern" || $parent['name']=="The World"){
 					$tpl->setVar('name', $hostname);
 					$tpl->setVar('node', $ipadress);
 					$tpl->setVar('responsible', $item['responsible']);
