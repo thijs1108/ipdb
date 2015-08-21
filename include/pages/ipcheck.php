@@ -47,11 +47,11 @@ class ipcheck {
 					$tpl->setVar('remarks', $item['remarks']);
 					$tpl->setVar('realaddress', $outipadress);
 				if($outipadress!="bestaat niet"){
-					$updatebutton="<center><button type='button'>Update</button></center>";
-					$tpl->setVar('update', $updatebutton);
+					$updatebutton="<input value='change' type='submit'>";
+					$tpl->setVar('button', $updatebutton);
 				}
 				else{
-					$tpl->setVar('update', '');
+					$tpl->setVar('button', '');
 				}
 				$tpl->parse('entry');
 			}

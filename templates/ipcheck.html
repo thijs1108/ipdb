@@ -10,11 +10,26 @@ De volgende hostnames hebben niet het ip adres dat er naast staat!
 	</thead>
 	<tbody>
 			<!-- BEGIN entry -->
-			<tr style="white-space: nowrap;cursor: pointer;" onclick="window.location.href = '?page=main&node={node}/32'">
-				<td>{name}</td>
-				<td>{node}</td>
-				<td>{realaddress}</td>
-				<td><a href="?remote=remote&address={realaddress}&bits=32&nodename={name}&responsible={responsible}&remarks={remarks}&os={os}&servergroup={servergroup}&description={description}&submit=&cancel=cancel&action=changenode&node={node}/32">{update}</a></td>
+			<tr>
+				<td style="white-space: nowrap;cursor: pointer;" onclick="window.location.href = '?page=main&node={node}/32'">{name}</td>
+				<td style="white-space: nowrap;cursor: pointer;" onclick="window.location.href = '?page=main&node={node}/32'">{node}</td>
+				<td style="white-space: nowrap;cursor: pointer;" onclick="window.location.href = '?page=main&node={node}/32'">{realaddress}</td>
+				<td>
+					<form method="post" action="" remote="remote">
+						<input type="hidden" name="address" value="{realaddress}" type="text">
+						<input type="hidden" name="bits" value="32" type="text">
+						<input type="hidden" name="nodename" value="{name}" type="text">
+						<input type="hidden" name="responsible" value="{responsible}" type="text">
+						<input type="hidden" name="remarks" value="{remarks}" type="text">
+						<input type="hidden" name="os" value="{os}" type="text">
+						<input type="hidden" name="servergroup" value="{servergroup}" type="text">
+						<input type="hidden" name="description" value="{description}" type="text">
+						<input type="hidden" name="action" value="changenode" type="">
+						<input type="hidden" name="node" value="{node}/32" type="">
+						<input type="hidden" name="page" value="ipcheck" type="">
+						<center>{button}</center>
+					</form>	
+				</td>
 			</tr>
 			<!-- END entry -->
 		</tbody>
